@@ -1,0 +1,6 @@
+{
+  "name": "LMLS - The life tracker",
+  "description": "Your AI Productivity Companion that actively helps you plan, prioritize, schedule, and complete your tasks before deadlines are missed.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

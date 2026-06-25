@@ -1,0 +1,1394 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-primary: #2563EB;
+  --color-secondary: #10B981;
+  --color-accent: #F59E0B;
+  --color-danger: #EF4444;
+  --color-dark: #0F172A;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-pulse-slow: pulse-slow 3s infinite ease-in-out;
+  --animate-spin-slow: spin-slow 12s infinite linear;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Base resets & premium global styles */
+html, body {
+  font-family: var(--font-sans);
+  background-color: #FAFAF9; /* Soft premium warm off-white, like Airbnb/Notion */
+  color: #0F172A;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  letter-spacing: -0.011em;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.25);
+}
+
+/* --- PREMIUM SAAS DESIGN SYSTEM DECORATIONS (The "Stripe/Apple" Layer) --- */
+
+/* Frosted modern panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+}
+
+.dark-glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Beautiful light cards override */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-white {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.035) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.015), 0 4px 18px -1px rgba(15, 23, 42, 0.03) !important;
+  border-radius: 1.25rem !important; /* Elegant modern 20px radius */
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-white:hover {
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02), 0 10px 30px -4px rgba(15, 23, 42, 0.06) !important;
+  transform: translateY(-1px);
+}
+
+/* Exclude specifically un-hoverable items */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-white.no-hover-effect:hover {
+  transform: none !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.015), 0 4px 18px -1px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Beautiful inputs */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) input, 
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) textarea, 
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) select {
+  font-family: var(--font-sans);
+  border-radius: 0.875rem !important; /* Elegant 14px radius */
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01) !important;
+  padding: 0.625rem 0.875rem !important;
+  font-size: 0.8125rem !important;
+  color: #0F172A !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) input:focus, 
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) textarea:focus, 
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) select:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+  background-color: #ffffff !important;
+}
+
+/* Beautiful primary tactile buttons */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-blue-600 {
+  background-image: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 14px rgba(37, 99, 235, 0.12) !important;
+  border-radius: 0.875rem !important; /* 14px */
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-blue-600:hover {
+  background-image: linear-gradient(135deg, #1D4ED8, #1E40AF) !important;
+  transform: translateY(-1.5px) scale(1.01) !important;
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.08), 0 8px 20px rgba(37, 99, 235, 0.2) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-blue-600:active {
+  transform: translateY(0.5px) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Secondary dark/slate buttons styling */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-slate-900 {
+  background-image: linear-gradient(135deg, #0F172A, #1E293B) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 12px rgba(15, 23, 42, 0.1) !important;
+  border-radius: 0.875rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-slate-900:hover {
+  background-image: linear-gradient(135deg, #1E293B, #334155) !important;
+  transform: translateY(-1.5px) scale(1.01) !important;
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.08), 0 8px 20px rgba(15, 23, 42, 0.15) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .bg-slate-900:active {
+  transform: translateY(0.5px) !important;
+}
+
+/* Header blurs */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) header {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Beautiful modern badges */
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) .rounded-full {
+  letter-spacing: -0.01em;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) span[class*="bg-blue-50"] {
+  background-color: rgba(37, 99, 235, 0.06) !important;
+  color: #2563EB !important;
+  border: 1px solid rgba(37, 99, 235, 0.1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) span[class*="bg-emerald-50"] {
+  background-color: rgba(16, 185, 129, 0.06) !important;
+  color: #059669 !important;
+  border: 1px solid rgba(16, 185, 129, 0.1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) span[class*="bg-amber-50"] {
+  background-color: rgba(245, 158, 11, 0.06) !important;
+  color: #D97706 !important;
+  border: 1px solid rgba(245, 158, 11, 0.1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) span[class*="bg-red-50"] {
+  background-color: rgba(239, 68, 68, 0.06) !important;
+  color: #DC2626 !important;
+  border: 1px solid rgba(239, 68, 68, 0.1) !important;
+}
+
+body:not(.theme-glass-dark):not(.theme-glass-light):not(.theme-gradient-dark):not(.theme-gradient-light) span[class*="bg-purple-50"] {
+  background-color: rgba(139, 92, 246, 0.06) !important;
+  color: #7C3AED !important;
+  border: 1px solid rgba(139, 92, 246, 0.1) !important;
+}
+
+/* --- THEME CUSTOM OVERRIDES --- */
+
+/* 1. Glass Dark (Frosted dark slate glass like iOS) */
+.theme-glass-dark {
+  color-scheme: dark;
+  background: #1a1a2e !important;
+  --cta-bg: #00d9ff;
+  --cta-hover: #00bfff;
+  --cta-text: #1a1a2e;
+  --cta-shadow: rgba(0, 217, 255, 0.25);
+}
+.theme-glass-dark #hero-section .hero-title,
+.theme-glass-dark #hero-section .hero-title-accent {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.theme-glass-dark #hero-section .hero-description,
+.theme-glass-dark #hero-section .hero-social-proof {
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.theme-glass-dark #hero-section .hero-badge {
+  background-color: rgba(0, 217, 255, 0.1) !important;
+  color: #00d9ff !important;
+  border-color: rgba(0, 217, 255, 0.2) !important;
+}
+.theme-glass-dark #hero-section .hero-cta-sec {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark #hero-section .hero-cta-sec:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+.theme-glass-dark header, 
+.theme-glass-dark aside,
+.theme-glass-dark .bg-white,
+.theme-glass-dark .bg-slate-50,
+.theme-glass-dark .bg-slate-100,
+.theme-glass-dark .bg-slate-50\/50,
+.theme-glass-dark .bg-slate-100\/50,
+.theme-glass-dark .bg-slate-200\/50,
+.theme-glass-dark .bg-white\/80 {
+  background-color: rgba(13, 18, 35, 0.45) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Override any other white/slate elements with translucent dark background in glass-dark to avoid white-on-white text */
+.theme-glass-dark div[class*="bg-white"],
+.theme-glass-dark div[class*="bg-slate-50"],
+.theme-glass-dark div[class*="bg-slate-100"],
+.theme-glass-dark section[class*="bg-white"],
+.theme-glass-dark section[class*="bg-slate-"] {
+  background-color: rgba(13, 18, 35, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+.theme-glass-dark select,
+.theme-glass-dark input,
+.theme-glass-dark textarea {
+  background-color: rgba(10, 15, 30, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark select option {
+  background-color: #0d1223 !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark h1,
+.theme-glass-dark h2,
+.theme-glass-dark h3,
+.theme-glass-dark h4,
+.theme-glass-dark .text-slate-950,
+.theme-glass-dark .text-slate-900,
+.theme-glass-dark .text-slate-800,
+.theme-glass-dark .text-slate-700 {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.theme-glass-dark .text-slate-650,
+.theme-glass-dark .text-slate-600,
+.theme-glass-dark .text-slate-500,
+.theme-glass-dark .text-slate-400 {
+  color: #cbd5e1 !important;
+}
+.theme-glass-dark .border-slate-100,
+.theme-glass-dark .border-slate-200,
+.theme-glass-dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-glass-dark .text-blue-600 {
+  color: #60a5fa !important;
+}
+.theme-glass-dark .bg-blue-600 {
+  background-image: linear-gradient(to right, #3b82f6, #6366f1) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark .bg-blue-600:hover {
+  background-image: linear-gradient(to right, #2563eb, #4f46e5) !important;
+}
+
+/* Beautiful dark-mode custom-themed glow badges for glass-dark */
+.theme-glass-dark .bg-blue-50,
+.theme-glass-dark .bg-indigo-50,
+.theme-glass-dark .bg-violet-50 {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: #a5b4fc !important;
+  border: 1px solid rgba(99, 102, 241, 0.35) !important;
+}
+.theme-glass-dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #6ee7b7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+.theme-glass-dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  color: #fde047 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+.theme-glass-dark .bg-rose-50 {
+  background-color: rgba(244, 63, 94, 0.18) !important;
+  color: #fda4af !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+
+/* 2. Glass Light (Frosted light aurora glass like iOS) */
+.theme-glass-light {
+  color-scheme: light;
+  background: #f5f7fa !important;
+  --cta-bg: #6366f1;
+  --cta-hover: #4f46e5;
+  --cta-text: #ffffff;
+  --cta-shadow: rgba(99, 102, 241, 0.25);
+}
+.theme-glass-light #hero-section .hero-title,
+.theme-glass-light #hero-section .hero-title-accent,
+.theme-glass-light #hero-section .hero-description,
+.theme-glass-light #hero-section .hero-social-proof {
+  color: #1a1a2e !important;
+  text-shadow: none !important;
+}
+.theme-glass-light #hero-section .hero-badge {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  color: #1a1a2e !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+.theme-glass-light #hero-section .hero-cta-sec {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #1a1a2e !important;
+}
+.theme-glass-light #hero-section .hero-cta-sec:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+.theme-glass-light header, 
+.theme-glass-light aside,
+.theme-glass-light .bg-white,
+.theme-glass-light .bg-slate-50,
+.theme-glass-light .bg-slate-100,
+.theme-glass-light .bg-slate-50\/50,
+.theme-glass-light .bg-slate-100\/50,
+.theme-glass-light .bg-slate-200\/50,
+.theme-glass-light .bg-white\/80 {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08) !important;
+  color: #0f172a !important;
+}
+
+/* Let the underlying dynamic light glass backdrop shine through on divs and sections */
+.theme-glass-light div[class*="bg-white"],
+.theme-glass-light div[class*="bg-slate-50"],
+.theme-glass-light div[class*="bg-slate-100"],
+.theme-glass-light section[class*="bg-white"],
+.theme-glass-light section[class*="bg-slate-"] {
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.theme-glass-light select,
+.theme-glass-light input,
+.theme-glass-light textarea {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+.theme-glass-light select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+.theme-glass-light h1,
+.theme-glass-light h2,
+.theme-glass-light h3,
+.theme-glass-light h4,
+.theme-glass-light .text-slate-950,
+.theme-glass-light .text-slate-900,
+.theme-glass-light .text-slate-800,
+.theme-glass-light .text-slate-700 {
+  color: #0f172a !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Force light text elements to render dark and readable in Glass Light Theme */
+.theme-glass-light .text-slate-100,
+.theme-glass-light .text-slate-200,
+.theme-glass-light .text-slate-300,
+.theme-glass-light .text-slate-400,
+.theme-glass-light .text-slate-500,
+.theme-glass-light .text-gray-100,
+.theme-glass-light .text-gray-200,
+.theme-glass-light .text-gray-300,
+.theme-glass-light .text-gray-400,
+.theme-glass-light .text-white {
+  color: #1e293b !important;
+}
+
+.theme-glass-light .text-slate-650,
+.theme-glass-light .text-slate-600,
+.theme-glass-light .text-slate-500,
+.theme-glass-light .text-slate-400 {
+  color: #475569 !important;
+}
+.theme-glass-light .border-slate-100,
+.theme-glass-light .border-slate-200,
+.theme-glass-light .border-slate-300 {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+.theme-glass-light .text-blue-600 {
+  color: #2563eb !important;
+}
+.theme-glass-light .bg-blue-600 {
+  background-image: linear-gradient(to right, #2563eb, #4f46e5) !important;
+  color: #ffffff !important;
+}
+.theme-glass-light .bg-blue-600:hover {
+  background-image: linear-gradient(to right, #1d4ed8, #4338ca) !important;
+}
+
+/* BUT keep light/white text safe inside explicit dark container backgrounds inside Glass Light mode */
+.theme-glass-light .bg-slate-900,
+.theme-glass-light .bg-slate-950,
+.theme-glass-light .bg-black,
+.theme-glass-light .bg-slate-900 *:not(.mockup-card):not(.mockup-card *),
+.theme-glass-light .bg-slate-950 *:not(.mockup-card):not(.mockup-card *),
+.theme-glass-light .bg-black *:not(.mockup-card):not(.mockup-card *),
+.theme-glass-light .bg-gradient-to-r *:not(.mockup-card):not(.mockup-card *),
+.theme-glass-light .bg-gradient-to-br *:not(.mockup-card):not(.mockup-card *),
+.theme-glass-light button.bg-slate-900 *,
+.theme-glass-light button.bg-slate-950 *,
+.theme-glass-light button.bg-blue-600 * {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+
+/* 3. Gradient Dark (Premium Midnight Violet-Blue) */
+.theme-gradient-dark {
+  color-scheme: dark;
+  background: linear-gradient(135deg, #3c096c 0%, #0a0a14 55%, #0a0a14 100%) !important;
+  --cta-bg: #8a2be2;
+  --cta-hover: #721acb;
+  --cta-text: #ffffff;
+  --cta-shadow: rgba(138, 43, 226, 0.25);
+}
+.theme-gradient-dark #hero-section .hero-title,
+.theme-gradient-dark #hero-section .hero-title-accent,
+.theme-gradient-dark #hero-section .hero-description,
+.theme-gradient-dark #hero-section .hero-social-proof {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.theme-gradient-dark #hero-section .hero-badge {
+  background-color: rgba(138, 43, 226, 0.15) !important;
+  color: #d8b4fe !important;
+  border-color: rgba(138, 43, 226, 0.25) !important;
+}
+.theme-gradient-dark #hero-section .hero-cta-sec {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(138, 43, 226, 0.3) !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark #hero-section .hero-cta-sec:hover {
+  background-color: rgba(138, 43, 226, 0.15) !important;
+}
+.theme-gradient-dark header,
+.theme-gradient-dark aside,
+.theme-gradient-dark .bg-white,
+.theme-gradient-dark .bg-slate-50,
+.theme-gradient-dark .bg-slate-100 {
+  background-color: rgba(17, 14, 43, 0.65) !important; /* Semi-transparent so background gradient shines through beautifully! */
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+  color: #f8fafc !important;
+}
+
+/* Semi-transparent custom cards for gradient visibility */
+.theme-gradient-dark div[class*="bg-white"],
+.theme-gradient-dark div[class*="bg-slate-50"],
+.theme-gradient-dark div[class*="bg-slate-100"],
+.theme-gradient-dark section[class*="bg-white"],
+.theme-gradient-dark section[class*="bg-slate-"] {
+  background-color: rgba(17, 14, 43, 0.7) !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.theme-gradient-dark select,
+.theme-gradient-dark input,
+.theme-gradient-dark textarea {
+  background-color: #0b0820 !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark select option {
+  background-color: #070514 !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark h1,
+.theme-gradient-dark h2,
+.theme-gradient-dark h3,
+.theme-gradient-dark h4,
+.theme-gradient-dark .text-slate-950,
+.theme-gradient-dark .text-slate-900,
+.theme-gradient-dark .text-slate-800,
+.theme-gradient-dark .text-slate-700 {
+  color: #ffffff !important;
+}
+.theme-gradient-dark .text-slate-650,
+.theme-gradient-dark .text-slate-600,
+.theme-gradient-dark .text-slate-500,
+.theme-gradient-dark .text-slate-400 {
+  color: #e2e8f0 !important;
+}
+.theme-gradient-dark .border-slate-100,
+.theme-gradient-dark .border-slate-200 {
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+.theme-gradient-dark .text-blue-600 {
+  color: #a78bfa !important;
+}
+.theme-gradient-dark .bg-blue-600 {
+  background-color: #7c3aed !important;
+}
+.theme-gradient-dark .bg-blue-600:hover {
+  background-color: #6d28d9 !important;
+}
+
+/* Premium gradient custom dark themed glow badges */
+.theme-gradient-dark .bg-blue-50,
+.theme-gradient-dark .bg-indigo-50,
+.theme-gradient-dark .bg-violet-50 {
+  background-color: rgba(139, 92, 246, 0.2) !important;
+  color: #d8b4fe !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+}
+.theme-gradient-dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #6ee7b7 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+.theme-gradient-dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  color: #fde047 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+.theme-gradient-dark .bg-rose-50 {
+  background-color: rgba(244, 63, 94, 0.18) !important;
+  color: #fda4af !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+
+/* 4. Gradient Light (Premium Silk Champagne) */
+.theme-gradient-light {
+  color-scheme: light;
+  background: linear-gradient(135deg, #fbcfe8 0%, #fef3f7 60%, #fef3f7 100%) !important;
+  --cta-bg: #db2777;
+  --cta-hover: #be185d;
+  --cta-text: #ffffff;
+  --cta-shadow: rgba(219, 39, 119, 0.25);
+}
+.theme-gradient-light #hero-section .hero-title,
+.theme-gradient-light #hero-section .hero-title-accent,
+.theme-gradient-light #hero-section .hero-description,
+.theme-gradient-light #hero-section .hero-social-proof {
+  color: #3c1f13 !important;
+  text-shadow: none !important;
+}
+.theme-gradient-light #hero-section .hero-badge {
+  background-color: rgba(219, 39, 119, 0.08) !important;
+  color: #3c1f13 !important;
+  border-color: rgba(219, 39, 119, 0.15) !important;
+}
+.theme-gradient-light #hero-section .hero-cta-sec {
+  background-color: rgba(219, 39, 119, 0.05) !important;
+  border: 1px solid rgba(219, 39, 119, 0.15) !important;
+  color: #3c1f13 !important;
+}
+.theme-gradient-light #hero-section .hero-cta-sec:hover {
+  background-color: rgba(219, 39, 119, 0.10) !important;
+}
+.theme-gradient-light header,
+.theme-gradient-light aside,
+.theme-gradient-light .bg-white,
+.theme-gradient-light .bg-slate-50,
+.theme-gradient-light .bg-slate-100 {
+  background-color: rgba(255, 255, 255, 0.55) !important; /* Semi-transparent warm white so background peachy silk gradient is visible! */
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(244, 63, 94, 0.1) !important;
+  color: #0f172a !important;
+}
+
+/* Semi-transparent custom light elements for gradient visibility */
+.theme-gradient-light div[class*="bg-white"],
+.theme-gradient-light div[class*="bg-slate-50"],
+.theme-gradient-light div[class*="bg-slate-100"],
+.theme-gradient-light section[class*="bg-white"],
+.theme-gradient-light section[class*="bg-slate-"] {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(244, 63, 94, 0.08) !important;
+  color: #0f172a !important;
+}
+
+.theme-gradient-light select,
+.theme-gradient-light input,
+.theme-gradient-light textarea {
+  background-color: #fffafb !important;
+  border-color: rgba(244, 63, 94, 0.15) !important;
+  color: #0f172a !important;
+}
+.theme-gradient-light select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+.theme-gradient-light h1,
+.theme-gradient-light h2,
+.theme-gradient-light h3,
+.theme-gradient-light h4,
+.theme-gradient-light .text-slate-950,
+.theme-gradient-light .text-slate-900,
+.theme-gradient-light .text-slate-800,
+.theme-gradient-light .text-slate-700 {
+  color: #1e293b !important;
+}
+
+/* Force light-text elements to render dark and readable in Gradient Light Theme */
+.theme-gradient-light .text-slate-100,
+.theme-gradient-light .text-slate-200,
+.theme-gradient-light .text-slate-300,
+.theme-gradient-light .text-slate-400,
+.theme-gradient-light .text-slate-500,
+.theme-gradient-light .text-gray-100,
+.theme-gradient-light .text-gray-200,
+.theme-gradient-light .text-gray-300,
+.theme-gradient-light .text-gray-400,
+.theme-gradient-light .text-white {
+  color: #1e293b !important;
+}
+
+.theme-gradient-light .text-slate-650,
+.theme-gradient-light .text-slate-600,
+.theme-gradient-light .text-slate-500,
+.theme-gradient-light .text-slate-400 {
+  color: #475569 !important;
+}
+.theme-gradient-light .border-slate-100,
+.theme-gradient-light .border-slate-200 {
+  border-color: rgba(244, 63, 94, 0.1) !important;
+}
+.theme-gradient-light .text-blue-600 {
+  color: #e11d48 !important;
+}
+.theme-gradient-light .bg-blue-600 {
+  background-color: #f43f5e !important;
+}
+.theme-gradient-light .bg-blue-600:hover {
+  background-color: #e11d48 !important;
+}
+
+/* BUT keep light/white text safe inside explicit dark container backgrounds inside Gradient Light mode */
+.theme-gradient-light .bg-slate-900,
+.theme-gradient-light .bg-slate-950,
+.theme-gradient-light .bg-black,
+.theme-gradient-light .bg-slate-900 *:not(.mockup-card):not(.mockup-card *),
+.theme-gradient-light .bg-slate-950 *:not(.mockup-card):not(.mockup-card *),
+.theme-gradient-light .bg-black *:not(.mockup-card):not(.mockup-card *),
+.theme-gradient-light .bg-gradient-to-r *:not(.mockup-card):not(.mockup-card *),
+.theme-gradient-light .bg-gradient-to-br *:not(.mockup-card):not(.mockup-card *),
+.theme-gradient-light button.bg-slate-900 *,
+.theme-gradient-light button.bg-slate-950 *,
+.theme-gradient-light button.bg-blue-600 * {
+  color: #ffffff !important;
+  text-shadow: none !important;
+}
+
+
+/* 5. Basic (Minimalist pristine slate borders) */
+.theme-basic {
+  color-scheme: light;
+  background-color: #f8fafc !important;
+  --cta-bg: #0f172a;
+  --cta-hover: #1e293b;
+  --cta-text: #ffffff;
+  --cta-shadow: rgba(15, 23, 42, 0.1);
+}
+.theme-basic header,
+.theme-basic aside,
+.theme-basic .bg-white,
+.theme-basic .bg-slate-50,
+.theme-basic .bg-slate-100 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+.theme-basic select,
+.theme-basic input,
+.theme-basic textarea {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.theme-basic h1,
+.theme-basic h2,
+.theme-basic h3,
+.theme-basic h4,
+.theme-basic .text-slate-950,
+.theme-basic .text-slate-900,
+.theme-basic .text-slate-800,
+.theme-basic .text-slate-700 {
+  color: #0f172a !important;
+}
+.theme-basic .text-slate-650,
+.theme-basic .text-slate-600,
+.theme-basic .text-slate-500,
+.theme-basic .text-slate-400 {
+  color: #475569 !important;
+}
+.theme-basic .border-slate-100,
+.theme-basic .border-slate-200 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Dynamic CTA Button Styles */
+#hero-get-started-cta {
+  background: var(--cta-bg, #2563eb) !important;
+  color: var(--cta-text, #ffffff) !important;
+  box-shadow: 0 4px 14px var(--cta-shadow, rgba(37, 99, 235, 0.2)) !important;
+}
+#hero-get-started-cta:hover {
+  background: var(--cta-hover, #1d4ed8) !important;
+  box-shadow: 0 6px 20px var(--cta-shadow, rgba(37, 99, 235, 0.35)) !important;
+  transform: translateY(-1.5px) scale(1.02) !important;
+}
+#hero-get-started-cta:active {
+  transform: translateY(0.5px) !important;
+}
+
+/* ==========================================================================
+   THEME-AWARE MODULES (FEATURE CARDS, FAQs, AUTH CARD)
+   ========================================================================== */
+
+/* --- 1. GLASS DARK THEME CUSTOMIZATIONS --- */
+.theme-glass-dark .feature-card {
+  background-color: rgba(13, 18, 35, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+}
+.theme-glass-dark .feature-card-bg-pattern {
+  background-color: rgba(0, 217, 255, 0.04) !important;
+}
+.theme-glass-dark .feature-card-icon-container {
+  background-color: rgba(0, 217, 255, 0.1) !important;
+  color: #00d9ff !important;
+}
+.theme-glass-dark .feature-card-badge {
+  background-color: rgba(0, 217, 255, 0.08) !important;
+  color: #00d9ff !important;
+  border: 1px solid rgba(0, 217, 255, 0.15) !important;
+}
+.theme-glass-dark .feature-card-title {
+  color: #ffffff !important;
+}
+.theme-glass-dark .feature-card-desc {
+  color: #cbd5e1 !important;
+}
+
+.theme-glass-dark .faq-container {
+  background-color: rgba(13, 18, 35, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-glass-dark .faq-trigger {
+  color: #ffffff !important;
+}
+.theme-glass-dark .faq-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark .faq-question {
+  color: #ffffff !important;
+}
+.theme-glass-dark .faq-chevron {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+.theme-glass-dark .faq-content {
+  background-color: rgba(10, 15, 30, 0.2) !important;
+  border-top-color: rgba(255, 255, 255, 0.05) !important;
+  color: #cbd5e1 !important;
+}
+
+.theme-glass-dark .auth-card {
+  background-color: rgba(13, 18, 35, 0.55) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6) !important;
+}
+.theme-glass-dark .auth-title {
+  color: #ffffff !important;
+}
+.theme-glass-dark .auth-subtitle {
+  color: #cbd5e1 !important;
+}
+.theme-glass-dark .auth-label {
+  color: #94a3b8 !important;
+}
+.theme-glass-dark .auth-input {
+  background-color: rgba(10, 15, 30, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark .auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+.theme-glass-dark .auth-input:focus {
+  border-color: #00d9ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.25) !important;
+}
+.theme-glass-dark .social-divider-line {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-glass-dark .social-divider-text {
+  background-color: #12162a !important;
+  color: #64748b !important;
+}
+.theme-glass-dark .social-btn {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+.theme-glass-dark .social-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark .auth-link {
+  color: #00d9ff !important;
+}
+.theme-glass-dark .auth-link:hover {
+  color: #33e2ff !important;
+}
+.theme-glass-dark .back-btn {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+.theme-glass-dark .back-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+.theme-glass-dark .auth-toast-info {
+  background-color: rgba(0, 217, 255, 0.1) !important;
+  border-color: rgba(0, 217, 255, 0.2) !important;
+  color: #00d9ff !important;
+}
+.theme-glass-dark .auth-toast-success {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+}
+
+
+/* --- 2. GLASS LIGHT THEME CUSTOMIZATIONS --- */
+.theme-glass-light .feature-card {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05) !important;
+}
+.theme-glass-light .feature-card-bg-pattern {
+  background-color: rgba(99, 102, 241, 0.04) !important;
+}
+.theme-glass-light .feature-card-icon-container {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+  color: #4f46e5 !important;
+}
+.theme-glass-light .feature-card-badge {
+  background-color: rgba(99, 102, 241, 0.06) !important;
+  color: #4f46e5 !important;
+  border: 1px solid rgba(99, 102, 241, 0.12) !important;
+}
+.theme-glass-light .feature-card-title {
+  color: #0f172a !important;
+}
+.theme-glass-light .feature-card-desc {
+  color: #334155 !important;
+}
+
+.theme-glass-light .faq-container {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+.theme-glass-light .faq-trigger {
+  color: #0f172a !important;
+}
+.theme-glass-light .faq-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+.theme-glass-light .faq-question {
+  color: #0f172a !important;
+}
+.theme-glass-light .faq-chevron {
+  color: #64748b !important;
+}
+.theme-glass-light .faq-content {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-top-color: rgba(0, 0, 0, 0.04) !important;
+  color: #334155 !important;
+}
+
+.theme-glass-light .auth-card {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+}
+.theme-glass-light .auth-title {
+  color: #0f172a !important;
+}
+.theme-glass-light .auth-subtitle {
+  color: #475569 !important;
+}
+.theme-glass-light .auth-label {
+  color: #334155 !important;
+}
+.theme-glass-light .auth-input {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+.theme-glass-light .auth-input::placeholder {
+  color: #94a3b8 !important;
+}
+.theme-glass-light .auth-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18) !important;
+}
+.theme-glass-light .social-divider-line {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+.theme-glass-light .social-divider-text {
+  background-color: #f7f9fc !important;
+  color: #64748b !important;
+}
+.theme-glass-light .social-btn {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  color: #334155 !important;
+}
+.theme-glass-light .social-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: #0f172a !important;
+}
+.theme-glass-light .auth-link {
+  color: #4f46e5 !important;
+}
+.theme-glass-light .auth-link:hover {
+  color: #3730a3 !important;
+}
+.theme-glass-light .back-btn {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  color: #334155 !important;
+}
+.theme-glass-light .back-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  color: #0f172a !important;
+}
+.theme-glass-light .auth-toast-info {
+  background-color: rgba(99, 102, 241, 0.06) !important;
+  border-color: rgba(99, 102, 241, 0.15) !important;
+  color: #4f46e5 !important;
+}
+.theme-glass-light .auth-toast-success {
+  background-color: rgba(16, 185, 129, 0.06) !important;
+  border-color: rgba(16, 185, 129, 0.15) !important;
+  color: #059669 !important;
+}
+
+
+/* --- 3. GRADIENT DARK THEME CUSTOMIZATIONS --- */
+.theme-gradient-dark .feature-card {
+  background-color: rgba(17, 14, 43, 0.7) !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45) !important;
+}
+.theme-gradient-dark .feature-card-bg-pattern {
+  background-color: rgba(139, 92, 246, 0.04) !important;
+}
+.theme-gradient-dark .feature-card-icon-container {
+  background-color: rgba(139, 92, 246, 0.15) !important;
+  color: #c084fc !important;
+}
+.theme-gradient-dark .feature-card-badge {
+  background-color: rgba(139, 92, 246, 0.12) !important;
+  color: #d8b4fe !important;
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+}
+.theme-gradient-dark .feature-card-title {
+  color: #ffffff !important;
+}
+.theme-gradient-dark .feature-card-desc {
+  color: #cbd5e1 !important;
+}
+
+.theme-gradient-dark .faq-container {
+  background-color: rgba(17, 14, 43, 0.75) !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+}
+.theme-gradient-dark .faq-trigger {
+  color: #ffffff !important;
+}
+.theme-gradient-dark .faq-trigger:hover {
+  background-color: rgba(139, 92, 246, 0.04) !important;
+}
+.theme-gradient-dark .faq-question {
+  color: #ffffff !important;
+}
+.theme-gradient-dark .faq-chevron {
+  color: #cbd5e1 !important;
+}
+.theme-gradient-dark .faq-content {
+  background-color: rgba(10, 8, 28, 0.3) !important;
+  border-top-color: rgba(139, 92, 246, 0.15) !important;
+  color: #e2e8f0 !important;
+}
+
+.theme-gradient-dark .auth-card {
+  background-color: rgba(17, 14, 43, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6) !important;
+}
+.theme-gradient-dark .auth-title {
+  color: #ffffff !important;
+}
+.theme-gradient-dark .auth-subtitle {
+  color: #e2e8f0 !important;
+}
+.theme-gradient-dark .auth-label {
+  color: #cbd5e1 !important;
+}
+.theme-gradient-dark .auth-input {
+  background-color: #0b0820 !important;
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark .auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
+}
+.theme-gradient-dark .auth-input:focus {
+  border-color: #a78bfa !important;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25) !important;
+}
+.theme-gradient-dark .social-divider-line {
+  background-color: rgba(139, 92, 246, 0.15) !important;
+}
+.theme-gradient-dark .social-divider-text {
+  background-color: #120e2a !important;
+  color: #a78bfa !important;
+}
+.theme-gradient-dark .social-btn {
+  background-color: rgba(139, 92, 246, 0.04) !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+  color: #cbd5e1 !important;
+}
+.theme-gradient-dark .social-btn:hover {
+  background-color: rgba(139, 92, 246, 0.1) !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark .auth-link {
+  color: #a78bfa !important;
+}
+.theme-gradient-dark .auth-link:hover {
+  color: #c084fc !important;
+}
+.theme-gradient-dark .back-btn {
+  background-color: rgba(139, 92, 246, 0.05) !important;
+  border: 1px solid rgba(139, 92, 246, 0.15) !important;
+  color: #cbd5e1 !important;
+}
+.theme-gradient-dark .back-btn:hover {
+  background-color: rgba(139, 92, 246, 0.12) !important;
+  color: #ffffff !important;
+}
+.theme-gradient-dark .auth-toast-info {
+  background-color: rgba(139, 92, 246, 0.12) !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+  color: #d8b4fe !important;
+}
+.theme-gradient-dark .auth-toast-success {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+  color: #34d399 !important;
+}
+
+
+/* --- 4. GRADIENT LIGHT THEME CUSTOMIZATIONS --- */
+.theme-gradient-light .feature-card {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(244, 63, 94, 0.08) !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 32px 0 rgba(244, 63, 94, 0.04) !important;
+}
+.theme-gradient-light .feature-card-bg-pattern {
+  background-color: rgba(244, 63, 94, 0.03) !important;
+}
+.theme-gradient-light .feature-card-icon-container {
+  background-color: rgba(244, 63, 94, 0.06) !important;
+  color: #db2777 !important;
+}
+.theme-gradient-light .feature-card-badge {
+  background-color: rgba(244, 63, 94, 0.05) !important;
+  color: #db2777 !important;
+  border: 1px solid rgba(244, 63, 94, 0.12) !important;
+}
+.theme-gradient-light .feature-card-title {
+  color: #0f172a !important;
+}
+.theme-gradient-light .feature-card-desc {
+  color: #475569 !important;
+}
+
+.theme-gradient-light .faq-container {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(244, 63, 94, 0.08) !important;
+}
+.theme-gradient-light .faq-trigger {
+  color: #0f172a !important;
+}
+.theme-gradient-light .faq-trigger:hover {
+  background-color: rgba(244, 63, 94, 0.02) !important;
+}
+.theme-gradient-light .faq-question {
+  color: #0f172a !important;
+}
+.theme-gradient-light .faq-chevron {
+  color: #475569 !important;
+}
+.theme-gradient-light .faq-content {
+  background-color: rgba(255, 255, 255, 0.35) !important;
+  border-top-color: rgba(244, 63, 94, 0.06) !important;
+  color: #475569 !important;
+}
+
+.theme-gradient-light .auth-card {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(244, 63, 94, 0.12) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+}
+.theme-gradient-light .auth-title {
+  color: #0f172a !important;
+}
+.theme-gradient-light .auth-subtitle {
+  color: #475569 !important;
+}
+.theme-gradient-light .auth-label {
+  color: #475569 !important;
+}
+.theme-gradient-light .auth-input {
+  background-color: #fffafb !important;
+  border: 1px solid rgba(244, 63, 94, 0.15) !important;
+  color: #0f172a !important;
+}
+.theme-gradient-light .auth-input::placeholder {
+  color: #94a3b8 !important;
+}
+.theme-gradient-light .auth-input:focus {
+  border-color: #f43f5e !important;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15) !important;
+}
+.theme-gradient-light .social-divider-line {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+}
+.theme-gradient-light .social-divider-text {
+  background-color: #fdf5f7 !important;
+  color: #64748b !important;
+}
+.theme-gradient-light .social-btn {
+  background-color: rgba(244, 63, 94, 0.02) !important;
+  border-color: rgba(244, 63, 94, 0.08) !important;
+  color: #334155 !important;
+}
+.theme-gradient-light .social-btn:hover {
+  background-color: rgba(244, 63, 94, 0.05) !important;
+  border-color: rgba(244, 63, 94, 0.15) !important;
+  color: #0f172a !important;
+}
+.theme-gradient-light .auth-link {
+  color: #e11d48 !important;
+}
+.theme-gradient-light .auth-link:hover {
+  color: #be185d !important;
+}
+.theme-gradient-light .back-btn {
+  background-color: rgba(244, 63, 94, 0.02) !important;
+  border: 1px solid rgba(244, 63, 94, 0.08) !important;
+  color: #334155 !important;
+}
+.theme-gradient-light .back-btn:hover {
+  background-color: rgba(244, 63, 94, 0.06) !important;
+  color: #0f172a !important;
+}
+.theme-gradient-light .auth-toast-info {
+  background-color: rgba(244, 63, 94, 0.04) !important;
+  border-color: rgba(244, 63, 94, 0.1) !important;
+  color: #e11d48 !important;
+}
+.theme-gradient-light .auth-toast-success {
+  background-color: rgba(16, 185, 129, 0.05) !important;
+  border-color: rgba(16, 185, 129, 0.1) !important;
+  color: #059669 !important;
+}
+
+
+/* --- 5. BASIC MINIMALIST THEME CUSTOMIZATIONS --- */
+.theme-basic .feature-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03) !important;
+}
+.theme-basic .feature-card-bg-pattern {
+  background-color: #f8fafc !important;
+}
+.theme-basic .feature-card-icon-container {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+.theme-basic .feature-card-badge {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.theme-basic .feature-card-title {
+  color: #0f172a !important;
+}
+.theme-basic .feature-card-desc {
+  color: #475569 !important;
+}
+
+.theme-basic .faq-container {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+.theme-basic .faq-trigger {
+  color: #0f172a !important;
+}
+.theme-basic .faq-trigger:hover {
+  background-color: #f8fafc !important;
+}
+.theme-basic .faq-question {
+  color: #0f172a !important;
+}
+.theme-basic .faq-chevron {
+  color: #475569 !important;
+}
+.theme-basic .faq-content {
+  background-color: #ffffff !important;
+  border-top-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+.theme-basic .auth-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+.theme-basic .auth-title {
+  color: #0f172a !important;
+}
+.theme-basic .auth-subtitle {
+  color: #475569 !important;
+}
+.theme-basic .auth-label {
+  color: #475569 !important;
+}
+.theme-basic .auth-input {
+  background-color: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.theme-basic .auth-input::placeholder {
+  color: #94a3b8 !important;
+}
+.theme-basic .auth-input:focus {
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1) !important;
+}
+.theme-basic .social-divider-line {
+  background-color: #e2e8f0 !important;
+}
+.theme-basic .social-divider-text {
+  background-color: #ffffff !important;
+  color: #64748b !important;
+}
+.theme-basic .social-btn {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+.theme-basic .social-btn:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.theme-basic .auth-link {
+  color: #0f172a !important;
+}
+.theme-basic .auth-link:hover {
+  color: #000000 !important;
+}
+.theme-basic .back-btn {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+.theme-basic .back-btn:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+.theme-basic .auth-toast-info {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+.theme-basic .auth-toast-success {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #065f46 !important;
+}
+
