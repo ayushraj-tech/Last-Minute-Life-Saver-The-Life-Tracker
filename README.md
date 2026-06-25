@@ -8,7 +8,7 @@ Never miss another assignment, meeting, interview, bill payment, or important co
 
 ### 🌐 Live Demo
 
-> *(Add your deployed application link here)*
+>last-minute-life-saver-ayush.web.app
 
 ### 📖 AI Studio Project
 
