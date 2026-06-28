@@ -266,14 +266,6 @@ http://localhost:3000
 
 # 🎨 Themes
 
-The application supports multiple premium themes.
-
-* 🌙 Midnight Gradient
-* ☀️ Elegant Light
-* 💎 Glass Elite
-* 🌌 Aurora
-* 🌊 Ocean Breeze
-
 Features include
 
 * Theme persistence
